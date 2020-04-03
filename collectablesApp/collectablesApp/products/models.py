@@ -40,3 +40,22 @@ class ProductTemplate(models.Model):
     def __str__(self):
         return self.parent_name
 
+
+class ProductProduct(models.Model):
+    short_code = models.CharField(max_length = 200, unique = True)
+    slug = models.SlugField(max_length=200, unique = True)
+    barcode = models.CharField(max_length=100, unique=True)
+    color = models.CharField(max_length = 100)
+    link = models.CharField(max_length=200, null=True)
+    template_id = models.ForeignKey(ProductTemplate, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    updated_on = models.DateTimeField(auto_now=True)
+    remarks = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(choices=STATUS, default=0)
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return self.short_code
