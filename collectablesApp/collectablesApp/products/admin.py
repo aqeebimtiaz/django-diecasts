@@ -1,12 +1,14 @@
 from django.contrib import admin
-from .models import Post
+from .models import ProductTemplate
 
 # Register your models here.
 
-class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'status', 'created_on')
-    list_filter = ("status", )
-    search_fields = ['title', 'content']
-    prepopulated_fields = {'slug': ('title',)}
 
-admin.site.register(Post, PostAdmin)
+class ProdTempAdmin(admin.ModelAdmin):
+    list_display = ('parent_name', 'barcode', 'manufacturer', 'year', 'style', 'author', 'status', 'created_on')
+    list_filter = ("status", "manufacturer", "style")
+    search_fields = ['parent_name', 'barcode', 'manufacturer', 'content']
+    prepopulated_fields = {'slug': ('parent_name',)}
+
+
+admin.site.register(ProductTemplate, ProdTempAdmin)
